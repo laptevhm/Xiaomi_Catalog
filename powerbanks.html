@@ -3,51 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог - Xiaomi</title>
+    <title>Каталог - Зовнішні акумулятори</title>
     <style>
         body { font-family: -apple-system, sans-serif; background: #fff; margin: 0; padding: 20px; }
         .back { margin-bottom: 20px; display: block; text-decoration: none; color: #0066cc; }
         h1 { font-size: 32px; margin-bottom: 30px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         .item { background: #f5f5f7; padding: 15px; border-radius: 20px; text-align: center; }
-        .img-box { background: #fff; height: 160px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
-        .img-box img { max-width: 80%; max-height: 80%; }
-        .n { font-size: 14px; font-weight: 500; height: 36px; overflow: hidden; margin-bottom: 5px; }
+        .img-box { background: #fff; height: 160px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;}
+        .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 36px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
         .c { font-size: 11px; color: #86868b; margin-bottom: 10px; }
         .p { font-size: 18px; font-weight: 600; }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back">← Назад</a>
-    <h1 id="cat-name">Зовнішні Акамулятотри</h1>
+    <a href="index.html" class="back">← Назад до меню</a>
+    <h1>Зовнішні акумулятори</h1>
     <div class="product-grid" id="list"></div>
 
     <script>
         const rate = 44.50;
         const margin = 1.10;
+
+        // Масив товарів (без помилкового порожнього елемента)
         const products = [
-            { id: "", name: "", usd: },
-            { id: "6934177704826",	name: "Power Bank Xiaomi 3 74W 20000mAh Black",	usd: 73.80 },
-            { id: " 6941812758663",	name: "Power Bank Xiaomi 10000mAh 22.5W Slim (BHR9350GL) Light Gray  ",	usd: 22.75 },
-            { id: "6941812780299 ",	name: "Power Bank Xiaomi 5000mAh Ultra Slim 18W  (BHR9535GL) сірий",	usd:18 },
-            { id: "6941812792155", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8851GL) Beige", usd: 32.23},
-            { id: "6941812795651", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8975GL) Blue ", usd: 32.23},
-            { id: "6941812797495", name: "Power Bank Xiaomi 6000mAh 15W Magnetic (BHR9074GL) Beige", usd: 37.92},
-            { id: "6941812797501", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Blue", usd: 26.54},
-            { id: "6941812797518", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Beige", usd: 26.54},
-            { id: "6941812798447", name: "Power Bank Xiaomi 30000mAh 18W (BHR9126GL) чорний", usd: 47.41},
+            { id: "6934177704826", name: "Power Bank Xiaomi 3 74W 20000mAh Black", usd: 73.80 },
+            { id: "6941812758663", name: "Power Bank Xiaomi 10000mAh 22.5W Slim (BHR9350GL) Light Gray", usd: 22.75 },
+            { id: "6941812780299", name: "Power Bank Xiaomi 5000mAh Ultra Slim 18W (BHR9535GL) сірий", usd: 18 },
+            { id: "6941812792155", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8851GL) Beige", usd: 32.23 },
+            { id: "6941812795651", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8975GL) Blue", usd: 32.23 },
+            { id: "6941812797495", name: "Power Bank Xiaomi 6000mAh 15W Magnetic (BHR9074GL) Beige", usd: 37.92 },
+            { id: "6941812797501", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Blue", usd: 26.54 },
+            { id: "6941812797518", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Beige", usd: 26.54 },
+            { id: "6941812798447", name: "Power Bank Xiaomi 30000mAh 18W (BHR9126GL) чорний", usd: 47.41 }
         ];
 
         const list = document.getElementById('list');
+        
         products.forEach(item => {
+            // Розрахунок ціни
             const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
-            list.innerHTML += `
+            
+            // Створення картки
+            const productCard = `
                 <div class="item">
-                    <div class="img-box"><img src="images/${item.id}.webp" onerror="this.src='images/${item.id}.jpg'; onerror="this.src='https://img.icons8.com/ios/100/86868b/electronics.png'"></div>
+                    <div class="img-box">
+                        <img src="images/${item.id}.webp" 
+                             onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');" 
+                             alt="${item.name}">
+                    </div>
                     <div class="n">${item.name}</div>
                     <div class="c">Арт: ${item.id}</div>
                     <div class="p">${uah.toLocaleString()} грн</div>
                 </div>`;
+            
+            list.innerHTML += productCard;
         });
     </script>
 </body>
