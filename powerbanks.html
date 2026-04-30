@@ -45,20 +45,36 @@
         products.forEach(item => {
             const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
             
-            // Створюємо картку товару
             const card = document.createElement('div');
             card.className = 'item';
             
-           // Логіка заміни картинок: webp -> jpg -> іконка
+            // Створюємо чистий шаблон картки
             card.innerHTML = `
                 <div class="img-box">
-                    <img src="images/${item.id}.webp" 
-                         onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');" 
-                         alt="${item.name}">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
                 </div>
                 <div class="n">${item.name}</div>
                 <span class="c">Арт: ${item.id}</span>
-                <div class="p">${uah.toLocaleString()} грн</div>`;
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
             
             list.appendChild(card);
         });
