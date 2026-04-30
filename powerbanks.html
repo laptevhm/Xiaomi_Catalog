@@ -53,9 +53,7 @@
             const productCard = `
                 <div class="item">
                     <div class="img-box">
-                        <img src="images/${item.id}.webp" 
-                             onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');" 
-                             alt="${item.name}">
+                     <img src="images/${item.id}.webp" onerror="this.src='images/${item.id}.jpg'; this.onerror=function(){this.src='https://img.icons8.com/ios/100/86868b/electronics.png'}"
                     </div>
                     <div class="n">${item.name}</div>
                     <div class="c">Арт: ${item.id}</div>
