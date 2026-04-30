@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог - Зовнішні акумулятори</title>
+    <title>Зовнішні акумулятори - Xiaomi</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #fff; margin: 0; padding: 20px; }
-        .back { margin-bottom: 20px; display: block; text-decoration: none; color: #0066cc; }
-        h1 { font-size: 32px; margin-bottom: 30px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .item { background: #f5f5f7; padding: 15px; border-radius: 20px; text-align: center; }
-        .img-box { background: #fff; height: 160px; border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;}
-        .img-box img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        .n { font-size: 14px; font-weight: 500; height: 36px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
-        .c { font-size: 11px; color: #86868b; margin-bottom: 10px; }
-        .p { font-size: 18px; font-weight: 600; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back">← Назад до меню</a>
+    <a href="index.html" class="back">← Назад</a>
     <h1>Зовнішні акумулятори</h1>
     <div class="product-grid" id="list"></div>
 
@@ -26,39 +27,41 @@
         const rate = 44.50;
         const margin = 1.10;
 
-        // Масив товарів (без помилкового порожнього елемента)
+        // Список товарів (виправлено помилки та пробіли в ID)
         const products = [
             { id: "6934177704826", name: "Power Bank Xiaomi 3 74W 20000mAh Black", usd: 73.80 },
             { id: "6941812758663", name: "Power Bank Xiaomi 10000mAh 22.5W Slim (BHR9350GL) Light Gray", usd: 22.75 },
-            { id: "6941812780299", name: "Power Bank Xiaomi 5000mAh Ultra Slim 18W (BHR9535GL) сірий", usd: 18 },
+            { id: "6941812780299", name: "Power Bank Xiaomi 5000mAh Ultra Slim 18W (BHR9535GL) Сірий", usd: 18 },
             { id: "6941812792155", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8851GL) Beige", usd: 32.23 },
             { id: "6941812795651", name: "Power Bank Xiaomi 20000mAh 33W Compact (BHR8975GL) Blue", usd: 32.23 },
             { id: "6941812797495", name: "Power Bank Xiaomi 6000mAh 15W Magnetic (BHR9074GL) Beige", usd: 37.92 },
             { id: "6941812797501", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Blue", usd: 26.54 },
             { id: "6941812797518", name: "Power Bank Xiaomi 10000mAh 22.5W Compact (BHR9073GL) Beige", usd: 26.54 },
-            { id: "6941812798447", name: "Power Bank Xiaomi 30000mAh 18W (BHR9126GL) чорний", usd: 47.41 }
+            { id: "6941812798447", name: "Power Bank Xiaomi 30000mAh 18W (BHR9126GL) Чорний", usd: 47.41 }
         ];
 
         const list = document.getElementById('list');
-        
+
         products.forEach(item => {
-            // Розрахунок ціни
             const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
             
-            // Створення картки
-            const productCard = `
-                <div class="item">
-                    <div class="img-box">
-                        <img src="images/${item.id}.webp" 
-                             onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');" 
-                             alt="${item.name}">
-                    </div>
-                    <div class="n">${item.name}</div>
-                    <div class="c">Арт: ${item.id}</div>
-                    <div class="p">${uah.toLocaleString()} грн</div>
-                </div>`;
+            // Створюємо картку товару
+            const card = document.createElement('div');
+            card.className = 'item';
             
-            list.innerHTML += productCard;
+            // Логіка заміни картинок: webp -> jpg -> іконка
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" 
+                         onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');" 
+                         alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
         });
     </script>
 </body>
