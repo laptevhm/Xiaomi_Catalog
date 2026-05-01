@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аксесуари для кухні</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Аксесуари для кухні</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+            { id: "0003497", name: "Xiaomi Mi Vacuum Flask 500ml White (MJBWB01XM)", usd:	15.60},
+{ id: "0003627", name: "Хiaomi Viomi Microbacteria Sterillization Deodorant Filter (VF1-CB)", usd:	9.50},
+{ id: "0007337", name: "Пакети для вакууматора  Xiaomi Jingchu L/15 шт (JC-BXD03) 28x40 см", usd:	8.20},
+{ id: "0007339", name: "Пакети для вакууматора  Xiaomi Jingchu S/15 ш т (JC-BXD01) 16x22 см", usd:	5.70},
+{ id: "0007340", name: "Винний набір Xiaomi Circle Joy Electric Wine Opener Darth Vader Gift Set 4в 1 (CJ-TZ07)", usd:	13.80},
+{ id: "0009118", name: "Млинок для спецій Electric Grinder (Black) 4хААА", usd:	5.42},
+{ id: "3210613", name: "Ополоник силіконовий Xiaomi Huo Hou Silicone Soup Ladle (Black, TD001776, HU0177)", usd:	4.60},
+{ id: "4007770313", name: "Помпа для води Xiaomi 3Life Automatic Water Pump White\Gray", usd:	13.00},
+{ id: "622356294935", name: "Набір каструль Ninja ZEROSTICK Classic, 3 предм. (CW53000DE)  1177413", usd:	50.00},
+{ id: "6932554423353", name: "Мультипіч Xiaomi Dual Zone Air Fryer (10L) 1160125", usd:	126.86},
+{ id: "6932554440572", name: "Мультипіч Xiaomi Smart Air Fryer MAF-W6501 White (6.5L) 1164224", usd:	81.98},
+{ id: "6933172101258", name: "Помпа для води Xiaomi Sothing Bottled Water Pump (DSHJ-S-2004)", usd:	11.36},
+{ id: "6934177778285", name: "Xiaomi Mijia Electric Kettle 2 White (MJDSH04YM) 953329", usd:	31.52},
+{ id: "6941812701058", name: "Розумний кухоний набір Xiaomi MiJia Kitchen Tool Set (KGJ001T)", usd:	38.30},
+{ id: "6941812791868", name: "Тостер Xiaomi Toaster BHR8811 (1105603)", usd:	30.12},
+{ id: "6941812798041", name: "Xiaomi Smart Kettle 2 PRO 1115998", usd:	51.77},
+{ id: "6952868301000", name: "Штопор та магнітна відкривашка Xiaomi Circle Joy Silver (CJ-EKPQ07)", usd:	16.80},
+{ id: "6952868303356", name: "Кавомолка Бездродова Xiaomi Circle Joy Electric Coffee Grinder (CJ-EG07)", usd:	18.20},
+{ id: "6952868310682", name: "Млинки для спецій Xiaomi Circle Joy Electric Grinder Set (CJ-EG14) металеві", usd:	23.00},
+{ id: "6952868312457", name: "Млинок для спецій Xiaomi Circle Joy Electric Grinder Black (4xAAA) (CJ-EG02)", usd:	11.56},
+{ id: "6952868312464", name: "Млинок для спецій Xiaomi Circle Joy Electric Grinder White (4xAAA) (CJ-EG02)", usd:	11.56},
+{ id: "6952868313768", name: "Млинок для спецій Xiaomi Circle Joy Sensor Electric Grinder (CJ-EG03) Silver", usd:	10.00},
+{ id: "6952868313782", name: "Кавомолка Бездродова Xiaomi Circle Joy Electric Coffee Grinder (CJ-EG05) Gold", usd:	25.50},
+{ id: "6952868320421", name: "Xiaomi Mijia Circle Joy Electric Bottle Opener Stainless Steel Wine Decanter Aerat (CJ-TZ02)", usd:	32.50},
+{ id: "6955578030260", name: "Xiaomi Derma Meat Grinder (DEM-JR01)", usd:	35.00},
+{ id: "6970960060274", name: "Штопор Xiaomi Huo Hou Electric Wine Bottle Opener Black (HU0027)", usd:	20.00},
+{ id: "6970960060762", name: "Нарбір Ножів Xiaomi HuoHou Cool Non-Stick Knife Set 5 Pcs Black (3049157/HU0076)", usd:	35.50},
+{ id: "6970960060953", name: "Набір ножів з підставкою Xiaomi HuoHou Stainless Steel (HU0095) 5 предметів", usd:	30.30},
+{ id: "6970960061417", name: "Млинок для спецій HUOHOU Electric Grinder (Black) 6хААА", usd:	13.66},
+{ id: "6970960061424", name: "Млинок для спецій HUOHOU Electric Grinder (White) 6хААА", usd:	13.66},
+{ id: "6970960061585", name: "Ножі Xiaomi HuoHou из 6 предметов (HU0158) деревяне руків'я", usd:	61.00},
+{ id: "6970960062001", name: "Млинок для спецій Xiaomi Circle Joy Electric Grinder Set (CJ-EG14) Black", usd:	15.90},
+{ id: "6970960062018", name: "Млинок для спецій Xiaomi Circle Joy Electric Grinder Set (CJ-EG14) White", usd:	15.90},
+{ id: "6970960062124", name: "Сковорода ВОК Huohou Fine Iron Wok, 30 см (HU0212)", usd:	19.00},
+{ id: "6970960062407", name: "Набір для вина Huohou Electric Wine Opener EWO-R1 (HU0240)", usd:	20.35},
+{ id: "6970960062933", name: "Млинки для спецій Xiaomi HuoHou Electric Grinder Set (HU0293)", usd:	27.20},
+{ id: "6972055221171", name: "Сенсорний аератор Xiaoda automatic water (HD-ZNJSQ-06)", usd:	7.00},
+{ id: "6972128563764", name: "Електричний розпилювач для олії Xiaomi MIWUNA (PUP-002) Green", usd:	12.90},
+{ id: "6972229763070", name: "Ланч бокс Xiaomi QUANGE Electric Lunch Box DFH-100 Green Bamboo", usd:	34.00},
+{ id: "6974370800000", name: "Ваги кухоні Хiaomi HOTO QWCFC001", usd:	25.00}
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
