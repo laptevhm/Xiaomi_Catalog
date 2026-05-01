@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товари для особистої гігієни</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Товари для особистої гігієни</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+            { id: "6394", name: "Триммер-Бритва Xiaomi Grooming Kit Pro (975738) 794292", usd:	42.33},
+{ id: "0008921", name: "Xiaomi Compact Hair Dryer H101 (Pink) (999897)", usd:	19.04},
+{ id: "0008922", name: "Фен Dreame Hair Miracle Dryer (AHD9) (1115078)", usd:	169.39},
+{ id: "2000984830998", name: "Картридж\Мило 1 серії для диспенсера Xiaomi MiniJ Foam Soap 250ml", usd:	4.54},
+{ id: "641349", name: "Зубная щетка Xiaomi Soocas X3U Clean Pink (2 зміні насадки+масажер обличчя)", usd:	38.00},
+{ id: "669800", name: "Насадка для Ірігатора Dr.Bei F3 A01 PortableWater Flosser (2 pics)", usd:	5.80},
+{ id: "6921402971900", name: "Диспенсер мила настінний з годинником  Білий (1145950)", usd:	23.00},
+{ id: "6932554403904", name: "Зубна щітка Xiaomi Oscillation Electric Toothbrush Blue 1129153", usd:	30.19},
+{ id: "6932554403997", name: "Зубна щітка Xiaomi Oscillation Electric Toothbrush White  1129152", usd:	30.19},
+{ id: "6932554436056", name: "Зубна щітка Xiaomi Oscillation Electric Toothbrush Pro White 1163553", usd:	40.99},
+{ id: "6932554436063", name: "Зубна щітка Xiaomi Oscillation Electric Toothbrush Pro Purple 1163554", usd:	41.55},
+{ id: "6934177707247", name: "Машинка для стрижки Xiaomi Mitu Baby Hair Trimmer (NUN4044CN)", usd:	18.50},
+{ id: "6934177713125", name: "Насадка для зубної щітки Xiaomi Mi NUN4090GL (GUM Care)", usd:	12.83},
+{ id: "6934177723179", name: "Диспенсер сенсорний для рідкого мила Mijia Automatic Dispenser  (526153)", usd:	10.20},
+{ id: "6934177725944", name: "Насадки Xiaomi Mijia Reciprocating Shaver 5 ножів (931371)", usd:	19.40},
+{ id: "6934177744259", name: "Фен Xiaomi MiJia Water Ion Hair Dryer H300 1800W білий (853903)", usd:	28.68},
+{ id: "6934177747137", name: "Насадка для зубної щітки Xiaomi T700 Repl.Heads (Purple)", usd:	11.70},
+{ id: "6934177758836", name: "Диспенсер мила Xiaomi MiJia Automatic Soap Dispenser Pro (MJXSJ04XW) 748206", usd:	27.00},
+{ id: "6941812701416", name: "Зубная щетка Xiaomi Mi T302 Electric Toothbrush Streamer Silver (BHR6744) 1003915", usd:	33.90},
+{ id: "6941812701423", name: "Зубная щетка Xiaomi Mi T302 Electric Toothbrush Deep Sea Blue (BHR6743CN)", usd:	30.50},
+{ id: "6941812713174", name: "Іригатор Xiaomi MiJia Flusher Oral Irrigator F300 (MEO703) White", usd:	35.60},
+{ id: "6941812717998", name: "Леза для тримера Xiaomi UniBlade 999894", usd:	11.40},
+{ id: "6941812751961", name: "Зубна щітка Xiaomi Smart Electric Toothbrush T501 (White)  1035681", usd:	53.93},
+{ id: "6941812784549", name: "Електробритва Xiaomi Electric Shaver S200 Silver (1121009)", usd:	24.09},
+{ id: "6941812798478", name: "Іригатор Xiaomi MiJia Water Flosser 2 (MEO705)", usd:	31.50},
+{ id: "6957092400338", name: "Электропемза Xiaomi Yueli Callus Remover Blue (SC-608G)", usd:	20.00},
+{ id: "6958444912936", name: "Ручна дезінфекційна лампа Usams US-ZB134", usd:	12,23},
+{ id: "6970237663368", name: "Насадки Soocas X1\X3\X5 Pink (944120)", usd:	8.86},
+{ id: "6970237664372", name: "Насадки Soocas X1\X3\X5 black (944122)", usd:	8.86},
+{ id: "6970237664372", name: "Насадки Soocas X1\X3\X5 black (944122)", usd:	9.33},
+{ id: "6970237666185", name: "Насадки Soocas Clean X1\X3\X5 Black", usd:	8.30},
+{ id: "6970237666192", name: "Насадки Soocas Soft  X1\X3\X5 White", usd:	8.30},
+{ id: "6970244525574", name: "Насадка для зубної щітки Xiaomi MiJia Sonic Toothbrush Head T300 / T500 Regular", usd:	8.00},
+{ id: "6970763911049", name: "Набор зубных щеток Dr. Bei Pasteur Toothbrush Bamboo Clean Edition", usd:	10.40},
+{ id: "6970810551310", name: "Насадки на зубную щетку Xiaomi Oclean Brush Head pink(PW03)", usd:	11.90},
+{ id: "6970810552492", name: "Насадки на зубную щетку Xiaomi Oclean Brush Head Green (PW09)", usd:	12.29},
+{ id: "6970810553765", name: "Насадки Oclean Brush Head white (PW02) 021803", usd:	12.50},
+{ id: "6971098560414", name: "Картриджи\Мило для диспенсера Xiaomi Mijia Soap 320ml (3pcs)", usd:	7.00},
+{ id: "6971098560414 0", name: "Картридж\Мило для диспенсера Xiaomi Mijia Foam Soap 320ml", usd:	4.10},
+{ id: "6971098561602", name: "Картридж\Мило Xiaomi MiJia Automatic Soap Dispenser (BHR5553RT) White (2 шт.)", usd:	10.70},
+{ id: "6971253831168", name: "Гребінець Xiaomi Wellskins Portable Negative Ion Hair Care Comb White", usd:	16.70},
+{ id: "6971308400042", name: "Масажер для обличчя inFace Electronic Sonic Beauty Facial рожевий", usd:	13.00},
+{ id: "6971308400073", name: "Масажер для обличчя inFace Electronic Sonic Beauty Facial зелений", usd:	13.00},
+{ id: "6971418388353", name: "Дзеркало Jordan&Judy Desktop LED Makeup Mirror (NV026) (підсвітка)", usd:	8.00},
+{ id: "6972169001898", name: "Дзеркало для макіяжу DOCO FMO01 Travel Flip Version Білий (1076047)", usd:	24.28},
+{ id: "6972169006305", name: "Дзеркало для макіяжу Xiaomi DOCO DayLight Mirror 2.0 (XM001)", usd:	15.90},
+{ id: "6973232085999", name: "Машинка для стрижки волос — Earldom ET-HC03", usd:	16.63},
+{ id: "6973925921986", name: "Насадка для зубної щітки Xiaomi Dr. Bei C1/S7 Professional Clean (PC01) 2 шт.", usd:	6.90},
+{ id: "6973925923096", name: "Зубная щетка DR.Bei Doctor B Colors 4pcs (NUN4006RT)", usd:	7.70},
+{ id: "6974099650245", name: "Очишчувач пор Xiaomi Youpin Wellskins Blackhead Apparatus WX- HT100 Silver", usd:	17.00},
+{ id: "6976233678009", name: "Фен Dreame Hair Glory Mix High-speed Hair Dryer-White AHD18", usd:	93.98}
+                  
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
