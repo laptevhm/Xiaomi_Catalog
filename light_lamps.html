@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Освітлення і лампи</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Освітлення і лампи</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+ { id: "501992", name: "Стельовий світильник Yeelight Crystal Ceiling Light Mini", usd:	14.50
+ { id: "608887786323", name: "Xiaomi Yeelight Motion Sensor Rechargeable Nightlight (YLYD01YL) (711159)", usd:	10.87 },
+ { id: "608887786590", name: "Світодіодна стрічка Yeelight LED Lightstrip Plus 1S 2м RGB YLDD05YL", usd:	32.67 },
+ { id: "658069", name: "Розумний вимикач Yeelight Flex Switch one gang (YLKG12YL)", usd:	4.90 },
+ { id: "658070", name: "Розумний вимикач Yeelight Flex Switch two gang (YLKG13YL)", usd:	6.13 },
+ { id: "6924922200857", name: "Додаткова Світодіодна стрічка 1м  Yeelight LED Lightstrip Extension 1S", usd:	8.04 },
+ { id: "6924922201502", name: "Розумний вимикач Yeelight bluetooth wall switch (YKLG07YL)", usd:	9.30 },
+ { id: "6924922202141", name: "Пульт керування Yeelight Remote Control (YLYK01YL)", usd:	5.27 },
+ { id: "6924922203155", name: "Xiaomi Yeelight Plug-in Nigth Light (YLYD11YL) (в розетку, датчик світла)", usd:	6.52 },
+ { id: "6924922243700", name: "Світлова панель Yeelight Cats Eye 42cm Срібний YLYYD-0012", usd:	11.50 },
+ { id: "6924922243717", name: "Світлова панель Yeelight Cats Eye 60cm Срібний YLYYD-0013", usd:	15.35 },
+ { id: "693417713064", name: "Xiaomi Mijia Plug-in Nigth Light (MJYD04YL) (в розетку, датчик світла)", usd:	14.00 },
+ { id: "6934177715037", name: "Xiaomi Mijia LED Light Bulb (MJDP09YL/GPX4024CN)", usd:	6.15 },
+ { id: "6934177751325", name: "Xiaomi Mi Motion Nigth Light 2 (MJYD02YL) (датчик руху, датчик світла, магнітна основа) (945644)", usd:	12.73 },
+ { id: "6934177795305", name: "Додаткова стрічка Yeelight LED Lightstrip Pro Plus", usd:	20.50 },
+ { id: "6941408871448", name: "Стельовий світильник Xiaomi OPPLE 12W (MX230-D12)", usd:	9.50 },
+ { id: "6941408871455", name: "Стельовий світильник Xiaomi OPPLE 6W (MX180-D6)", usd:	5.00 },
+ { id: "6970504210516", name: "Вимикач бездротовий Aqara Wireless Switch (Double-Button)", usd:	14.50 },
+ { id: "6970504213296", name: "Одноканальний модуль Aqara T1 з нейтралью (944763)", usd:	19.73 },
+ { id: "6971245850245", name: "Xiaomi Philips Mijia Bluetooth Noght Light White (4094RT)", usd:	15.00 }
+                  
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
