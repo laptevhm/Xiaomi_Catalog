@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Іграшки</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Іграшки</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+            { id: "001012481917", name: "Водяний бластер з автоматичним набором Smart baby HJ-004", usd:	10,18	 },
+            { id: "2001000140916", name: "Дитячий фотоапарат Rabbit white   817658", usd:	37,01	 },
+            { id: "2001000509942", name: "Портативна ігрова консоль G7 (gray)", usd:	12,60 },
+            { id: "2001000509959", name: "Портативна ігрова консоль G7 (Pink)", usd:	12,60 },
+            { id: "2001000509966", name: "Портативна ігрова консоль G7 (green)", usd:	12,60 },
+            { id: "2001000554690", name: "Портативна ігрова консоль G-416 + PowerBank 8000 mAh (white)", usd:	17,50 },
+            { id: "2001000554706", name: "Портативна ігрова консоль G-416 + PowerBank 8000 mAh (black orange)", usd:	17,50 },
+            { id: "2001000815180", name: "Портативна ігрова консоль G7 (Blue)", usd:	12,60 },
+            { id: "2001000817573", name: "Портативна ігрова консоль Q16 (Green)", usd:	24,02 },
+            { id: "2001000981137", name: "Водяний Пістолет з гідрогелевими  кульками M7 Laser Water Bullet Gun (white)", usd:	29,66 },
+            { id: "2001000981151", name: "Гідрогелеві кульки (10000 шт.) для дитячої зброї (blue)", usd:	3,05 },
+            { id: "2001000981168", name: "Водяний пістолет Water Gun Glock CY003 (Синій)", usd:	11,78 },
+            { id: "2001000981175", name: "Водяний пістолет Water Gun Glock CY003 (рожевий)", usd:	11,78 },
+            { id: "2001000981182", name: "Водяний Автомат Water Gun M416 (CY012) (Blue)", usd:	12,35 },
+            { id: "2001001042974", name: "Ігрова консоль NeUE M8 (64G 10000 Games)", usd:	11,88 },
+            { id: "2001001210410", name: "Водяний Пістолет з гідрогелевими  кульками Water Bullet Gun (colorful)", usd:	20,16 },
+            { id: "001001213626", name: "Водяний Пістолет Water Gun Space Electric (CY012) (Blue\White)", usd:	7,82 },
+            { id: "2001001804220", name: "Папір для дитячої фотокамери моментального друку (3 pcs) (white)", usd:	2,63 },
+            { id: "2001001957674", name: "Караоке мікрофон PlaySound (Blue)", usd:	14,44 },
+            { id: "2001001962746", name: "Водяний пістолет Water Gun Desert Eagle (pink)", usd:	15,45 },
+            { id: "2003000172782", name: "Караоке мікрофон Sound Wawe (beige)", usd:	12,29 },
+            { id: "2003000228298", name: "Дитячий фотоапарат Моментального друку DinoSnap (Green)", usd:	26,64 },
+            { id: "2003000228304", name: "Дитячий фотоапарат Моментального друку DinoSnap (Blue)", usd:	26,64 },
+            { id: "2003000228311", name: "Дитячий фотоапарат Unicorn Pink", usd:	15,56 },
+            { id: "6948679457852", name: "Водяний бластер Smart baby M2", usd:	11,20 },
+            { id: "6948679457869", name: "Водяний бластер з  автоматичним набором Smart baby 2302", usd:	11,74 }
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
