@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аксесуари для роботів-пилососів - Xiaomi</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Аксесуари для роботів-пилососів - Xiaomi</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+            { id: "0003950", name: "	Фільтр для пилососу MI Robot/Roborock Vacuum cleaner (SKV4007CN) white (2pcs)	", usd:	10,00	 },
+            { id: "0005510", name: "	щітка основна Roborock S7 brush (S752-02\S752-01)  Orange	", usd:	5,00	 },
+            { id: "0005536", name: "	Фільтр для пилососу Roborock S5\S6\S6 Pure white (1pcs)	", usd:	3,50	 },
+            { id: "0005537", name: "	щітка бокова Roborock S5\S6\S6 Max\S6 Pure black\white	", usd:	2,50	 },
+            { id: "0005538", name: "	Форсунка в піддон Roborock S5\S6\S6 Pure	", usd:	1,00 },
+            { id: "0005539", name: "	Тканина для вологого прибирання для робота пилососу RoboRock S5\S6 Mopping Cloth", usd: 3,00	 },
+            { id: "0005540", name: "	щітка основна Roborock S5\S6\S6 Pure brush Orange		", usd: 5,00	 },
+            { id: "0005548", name: "	Тканина для вологого до пилососу Xiaomi Mi MOP Cloth		", usd: 2,50	 },
+            { id: "0008785", name: "	Поштучно Змінна мікрофібра для Deerma Spray mop TB500	", usd:	1,82	 },
+            { id: "004028", name: "	кришка основної щітки робота пилосмока Xiaomi RoboRock	", usd:	7,00	 },
+            { id: "6923185608905", name: "	Мікрофібра для робота пилососу Viomi (2шт в комплекті)	", usd:	10,34	 },
+            { id: "6934177716263", name: "	Одноразова серветка для робота пилососу Xiaomi Mi Mop (30шт в комплекті)	", usd:	6,84	 }
+            { id: "6934177716423", name: "	Мікрофібра+губка для робота пилососу Xiaomi Mi Mop (2шт в комплекті)	", usd:	7,72	 }
+            { id: "6934177716928", name: "	Фільтр до робота пилосмока Xiaomi Mi Mop 1C		", usd: 2,00	 }
+            { id: "6934177723735", name: "	Набір для пилососу Mi Vacuum Cleaner G10 Mop (Тканина, форсунка)", usd: 7,75  }
+            { id: "6934177726422", name: "	Фільтр для пилососу Mi Vacuum Cleaner G10 Mop	", usd:	7,75	 }
+            { id: "6934177795145", name: "	Фільтр для робота-пилососа Xiaomi Robot Vacuum S10\S12\T12 Filter	", usd:	5,63	 }
+            { id: "6934177795206", name: "	Набір фільтрів Xiaomi G9 Plus/G10 Plus Filter Kit (1004526)	", usd:	11,12	 }
+            { id: "6934177795299", name: "	Щітка бокова Xiaomi Robot Vacuum E10/S10/E12\S12 Side Brush		", usd: 5,70	 }
+            { id: "6934177798146", name: "	Одноразовий мішок Xiaomi Robot Vacuum X10+/X10 DisposableBag	", usd:	15,04	 }
+            { id: "6941812700839", name: "	Щітка бокова Xiaomi Robot Vacuum X10+/S10+/X10 Side Brush	", usd:	7,51	 }
+            { id: "6955578030147", name: "	Змінна мікрофібра для Deerma Spray mop TB500 (8 шт в комплекті)	", usd: 14,50	 }
+                  
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
