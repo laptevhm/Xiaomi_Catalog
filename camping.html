@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товари для кемпінгу та відпочинку</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
+        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
+        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
+        .item:hover { transform: scale(1.02); }
+        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
+        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
+        .p { font-size: 19px; font-weight: 600; color: #000; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back">← Назад</a>
+    <h1>Товари для кемпінгу та відпочинку</h1>
+    <div class="product-grid" id="list"></div>
+
+    <script>
+        const rate = 44.50;
+        const margin = 1.10;
+
+        // Список товарів (виправлено помилки та пробіли в ID)
+        const products = [
+            { id: "2001000584796", name: "Ніж-Мультитул 11в1 black, red", usd:	4.15 },
+            { id: "2001001121013", name: "Ніж-Мультитул для кемпінгу 6 в 1", usd:	7.30 },
+            { id: "6902143100514", name: "Пластина для фумігатора Xiaomi (WP20090059)", usd:	4.90 },
+            { id: "6933172147867", name: "Електрична мухобійка Xiaomi Sothing (DSHJ-S-1906) Red", usd:	20.00 },
+            { id: "6933172155183", name: "Електрична мухобійка Xiaomi Sothing (DSHJ-S-1906) White", usd:	19.00 },
+            { id: "6945064210320", name: "Мультифункціональний ніж Nextool Flagship Pro (KT5020)", usd:	32.00 },
+            { id: "6945064210511", name: "Xiaomi NexTool  2000lm 6500K 380m USB-C (XPH50.2)", usd:	25.60 },
+            { id: "6945064210771", name: "Мультитул Xiaomi Nextool N1 (3 в 1) (NE20026)", usd:	18.80 },
+            { id: "6945064210825", name: "Xiaomi NexTool Multifunctional headlights USB-C (NE20002)", usd:	26.00 },
+            { id: "6970960061912", name: "Мультитул Xiaomi HuoHou K30 Pro (HU0191)", usd:	32.00 },
+            { id: "6970960062544", name: "Мультитул Xiaomi HuoHou K20 Pro (HU0254)", usd:	20.90 }
+            { id: "6971389250208", name: "Xiaomi BEEBEST Portable Flashlight (F1) Black", usd:	11.00 }
+            { id: "6971389250246", name: "Xiaomi BEEBEST Extreme strong light flashlight (F10) Black", usd:	38.00 }
+            { id: "6971670130578", name: "Мультитул Xiaomi Multifunctional Tourist EDC Tool (3172127)", usd:	16.45 }
+            { id: "6972040152596", name: "Електрична мухобійкаXiaomi Qualitell C4 (ZSC220906) White", usd:	20.50 }
+            { id: "6973907630806", name: "Мультитул Nextool Flagship Mini (KT5022)", usd:	21.00 }
+            { id: "902001174758", name: "Екшн-Камера Xiaomi YI Camera", usd:	30.00 }
+        ];
+
+        const list = document.getElementById('list');
+
+        products.forEach(item => {
+            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            // Створюємо чистий шаблон картки
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${uah.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
+
+            // Окрема логіка перевірки картинок для кожного ID
+            const imgElement = document.getElementById(`img-${item.id}`);
+            
+            imgElement.onerror = function() {
+                // Якщо не знайшли .webp, пробуємо .jpg
+                if (this.src.endsWith('.webp')) {
+                    this.src = `images/${item.id}.jpg`;
+                } 
+                // Якщо і .jpg не знайшли, ставимо іконку
+                else if (this.src.endsWith('.jpg')) {
+                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
+                    this.onerror = null; // Зупиняємо цикл помилок
+                }
+            };
+        });
+    </script>
+</body>
+</html>
