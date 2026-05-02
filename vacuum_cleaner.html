@@ -27,12 +27,11 @@
 
     <script>
         const rate = 44.50;
-        const margin = 1.10;
 
         // Список товарів (виправлено помилки та пробіли в ID)
         const products = [
-            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", usd: 415.54	 },
-            { id: "0008536", name: "Робот-гаазонокосарка LanDroid M Plus WR165E", usd: 400.00	 },
+            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", usd: 449.44	 },
+            { id: "0008536", name: "Робот-гаазонокосарка LanDroid M Plus WR165E", usd: 450.00	 },
             { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", usd: 19.06	 },
             { id: "6932554447052", name: "Робот-пилосос Xiaomi Robot Vacuum S40 Pro", usd: 276.00	 },
             { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max  1178433", usd: 346.13	 },
@@ -57,7 +56,7 @@
         const list = document.getElementById('list');
 
         products.forEach(item => {
-            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
+            const uah = Math.ceil((item.usd * rate) / 5) * 5;
             
             const card = document.createElement('div');
             card.className = 'item';
