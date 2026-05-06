@@ -26,51 +26,53 @@
     <div class="product-grid" id="list"></div>
 
     <script>
-        const rate = 44.50;
 
         // Список товарів (виправлено помилки та пробіли в ID)
         const products = [
-            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", usd: 449.44	 },
-            { id: "0008536", name: "Робот-гаазонокосарка LanDroid M Plus WR165E", usd: 450.00	 },
-            { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", usd: 15.73	 },
-            { id: "6932554447052", name: "Робот-пилосос Xiaomi Robot Vacuum S40 Pro", usd: 310.11	 },
-            { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max  1178433", usd: 370.79	 },
-            { id: "6936905901682", name: "Робот-пилосос Roborock QR 798 White  1141773", usd: 507.86	 },
-            { id: "6936905902054", name: "Робот-пилосос Roborock Q7 TF+ White  1141767", usd: 287.64	 },
-            { id: "6936905902368", name: "Робот-пилосос Roborock Q10 VF+ Black 1142371", usd: 332.58	 },
-            { id: "6941812760673", name: "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284", usd: 101.12	 },
-            { id: "6970995783346", name: "Робот-пилосос Roborock Qrevo Edge White  (1139659)", usd: 1112.36	 },
-            { id: "6970995783612", name: "Робот-пилосос Roborock Saros 10 White  1139656", usd: 1397.75	 },
-            { id: "6970995787740", name: "Робот-пилосос RoboRock Q8 Max+ Black + Док-Станція", usd: 417.98	 },
-            { id: "6970995788631", name: "Робот-пилосос Roborock Qrevo Pro + Док-Станція", usd: 606.74	 },
-            { id: "6970995789768", name: "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)", usd: 685.39  },
-            { id: "6971820280566", name: "Робот для миття вікон Xiaomi HUTT W8", usd: 280.90	 },
-            { id: "6971830920216", name: "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)	", usd: 17.98	 },
-            { id: "6974653813383", name: "Пилосос Roborock Alioth Pro H60 Hub Ultra  1169247", usd: 442.70	},
-            { id: "6974653813437", name: "Пилосос Roborock Aries Pro H60 Ultra  1169249", usd: 330.34	 },
-            { id: "6976233676128", name: "Робот-пилосос Dreame Robot Vacuum X40 Ultra Complete", usd: 993.26	 }
+            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", price: 449.44	 },
+            { id: "0008536", name: "Робот-гаазонокосарка LanDroid M Plus WR165E", price: 450.00	 },
+            { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", price: 15.73	 },
+            { id: "6932554447052", name: "Робот-пилосос Xiaomi Robot Vacuum S40 Pro", price: 310.11	 },
+            { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max  1178433", price: 370.79	 },
+            { id: "6936905901682", name: "Робот-пилосос Roborock QR 798 White  1141773", price: 507.86	 },
+            { id: "6936905902054", name: "Робот-пилосос Roborock Q7 TF+ White  1141767", price: 287.64	 },
+            { id: "6936905902368", name: "Робот-пилосос Roborock Q10 VF+ Black 1142371", price: 332.58	 },
+            { id: "6941812760673", name: "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284", price: 101.12	 },
+            { id: "6970995783346", name: "Робот-пилосос Roborock Qrevo Edge White  (1139659)", price: 1112.36	 },
+            { id: "6970995783612", name: "Робот-пилосос Roborock Saros 10 White  1139656", price: 1397.75	 },
+            { id: "6970995787740", name: "Робот-пилосос RoboRock Q8 Max+ Black + Док-Станція", price: 417.98	 },
+            { id: "6970995788631", name: "Робот-пилосос Roborock Qrevo Pro + Док-Станція", price: 606.74	 },
+            { id: "6970995789768", name: "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)", price: 685.39  },
+            { id: "6971820280566", name: "Робот для миття вікон Xiaomi HUTT W8", price: 280.90	 },
+            { id: "6971830920216", name: "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)	", price: 17.98	 },
+            { id: "6974653813383", name: "Пилосос Roborock Alioth Pro H60 Hub Ultra  1169247", price: 442.70	},
+            { id: "6974653813437", name: "Пилосос Roborock Aries Pro H60 Ultra  1169249", price: 330.34	 },
+            { id: "6976233676128", name: "Робот-пилосос Dreame Robot Vacuum X40 Ultra Complete", price: 993.26	 }
                   
         ];
 
         const list = document.getElementById('list');
 
-        products.forEach(item => {
-            const uah = Math.ceil((item.usd * rate) / 5) * 5;
-            
-            const card = document.createElement('div');
-            card.className = 'item';
-            
-            // Створюємо чистий шаблон картки
-            card.innerHTML = `
-                <div class="img-box">
-                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
-                </div>
-                <div class="n">${item.name}</div>
-                <span class="c">Арт: ${item.id}</span>
-                <div class="p">${uah.toLocaleString()} грн</div>
-            `;
-            
-            list.appendChild(card);
+products.forEach(item => {
+    // Просто беремо ціну з масиву
+    const finalPrice = item.price; 
+    
+    const card = document.createElement('div');
+    card.className = 'item';
+    
+    card.innerHTML = `
+        <div class="img-box">
+            <img src="images/${item.id}.webp" 
+                 alt="${item.name}" 
+                 onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');">
+        </div>
+        <div class="n">${item.name}</div>
+        <span class="c">Арт: ${item.id}</span>
+        <div class="p">${finalPrice.toLocaleString()} грн</div>
+    `;
+    
+    list.appendChild(card);
+});
 
             // Окрема логіка перевірки картинок для кожного ID
             const imgElement = document.getElementById(`img-${item.id}`);
