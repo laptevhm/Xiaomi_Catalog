@@ -53,28 +53,24 @@
 
         const list = document.getElementById('list');
 
-products.forEach(item => {
-    // Просто беремо ціну з масиву
-    const finalPrice = item.price; 
-    
-    const card = document.createElement('div');
-    card.className = 'item';
-    
-    card.innerHTML = `
-        <div class="img-box">
-            <img src="images/${item.id}.webp" 
-                 alt="${item.name}" 
-                 onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.setAttribute('onerror', 'this.src=\'https://img.icons8.com/ios/100/86868b/electronics.png\'');">
-        </div>
-        <div class="n">${item.name}</div>
-        <span class="c">Арт: ${item.id}</span>
-        <div class="p">${finalPrice.toLocaleString()} грн</div>
-    `;
-    
-    list.appendChild(card);
-});
+        products.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'item';
+            
+            card.innerHTML = `
+                <div class="img-box">
+                    <img src="images/${item.id}.webp" 
+                         id="img-${item.id}" 
+                         alt="${item.name}">
+                </div>
+                <div class="n">${item.name}</div>
+                <span class="c">Арт: ${item.id}</span>
+                <div class="p">${item.price.toLocaleString()} грн</div>
+            `;
+            
+            list.appendChild(card);
 
-            // Окрема логіка перевірки картинок для кожного ID
+            // ЛОГІКА ПЕРЕВІРКИ КАРТИНОК
             const imgElement = document.getElementById(`img-${item.id}`);
             
             imgElement.onerror = function() {
@@ -82,10 +78,10 @@ products.forEach(item => {
                 if (this.src.endsWith('.webp')) {
                     this.src = `images/${item.id}.jpg`;
                 } 
-                // Якщо і .jpg не знайшли, ставимо іконку
-                else if (this.src.endsWith('.jpg')) {
+                // Якщо і .jpg не знайшли, ставимо іконку-заглушку
+                else {
                     this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
-                    this.onerror = null; // Зупиняємо цикл помилок
+                    this.onerror = null; // Зупиняємо перевірку, щоб не зациклилось
                 }
             };
         });
