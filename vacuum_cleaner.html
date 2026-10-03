@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Техніка для прибирання - Xiaomi</title>
-  <link rel="icon" type="image/png" href="images/logo.png">
-<link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
         .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
@@ -15,7 +15,7 @@
         .item:hover { transform: scale(1.02); }
         .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
-        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
+        .n { font-size: 14px; font-weight: 500; min-height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
         .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
         .p { font-size: 19px; font-weight: 600; color: #000; }
     </style>
@@ -26,62 +26,68 @@
     <div class="product-grid" id="list"></div>
 
     <script>
+        // Курс і націнка для автоматичного перерахунку USD → UAH.
+        const USD_RATE = 44.50;
+        const MARKUP = 0.10;
 
-        // Список товарів (виправлено помилки та пробіли в ID)
+        // Ціни вказані в USD. Фінальна ціна:
+        // USD × 44.50 × 1.10, округлення до 0 або 5 грн.
+        function calculatePrice(usd) {
+            return Math.round((usd * USD_RATE * (1 + MARKUP)) / 5) * 5;
+        }
+
+        // Актуальний список товарів із наданого прайсу.
         const products = [
-            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", price: 449.44	 },
-            { id: "0008536", name: "Робот-гаазонокосарка LanDroid M Plus WR165E", price: 450.00	 },
-            { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", price: 15.73	 },
-            { id: "6932554447052", name: "Робот-пилосос Xiaomi Robot Vacuum S40 Pro", price: 310.11	 },
-            { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max  1178433", price: 370.79	 },
-            { id: "6936905901682", name: "Робот-пилосос Roborock QR 798 White  1141773", price: 507.86	 },
-            { id: "6936905902054", name: "Робот-пилосос Roborock Q7 TF+ White  1141767", price: 287.64	 },
-            { id: "6936905902368", name: "Робот-пилосос Roborock Q10 VF+ Black 1142371", price: 332.58	 },
-            { id: "6941812760673", name: "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284", price: 101.12	 },
-            { id: "6970995783346", name: "Робот-пилосос Roborock Qrevo Edge White  (1139659)", price: 1112.36	 },
-            { id: "6970995783612", name: "Робот-пилосос Roborock Saros 10 White  1139656", price: 1397.75	 },
-            { id: "6970995787740", name: "Робот-пилосос RoboRock Q8 Max+ Black + Док-Станція", price: 417.98	 },
-            { id: "6970995788631", name: "Робот-пилосос Roborock Qrevo Pro + Док-Станція", price: 606.74	 },
-            { id: "6970995789768", name: "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)", price: 685.39  },
-            { id: "6971820280566", name: "Робот для миття вікон Xiaomi HUTT W8", price: 280.90	 },
-            { id: "6971830920216", name: "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)	", price: 17.98	 },
-            { id: "6974653813383", name: "Пилосос Roborock Alioth Pro H60 Hub Ultra  1169247", price: 442.70	},
-            { id: "6974653813437", name: "Пилосос Roborock Aries Pro H60 Ultra  1169249", price: 330.34	 },
-            { id: "6976233676128", name: "Робот-пилосос Dreame Robot Vacuum X40 Ultra Complete", price: 993.26	 }
-                  
+            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", usd: 415.54 },
+            { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", usd: 19.06 },
+            { id: "1163555", name: "Робот-пилосос Xiaomi Robot Vacuum S40 (1163555)", usd: 160.00 },
+            { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max 1178433", usd: 346.13 },
+            { id: "1142369", name: "Робот-пилосос Roborock Q10 VF Black 1142369", usd: 200.00 },
+            { id: "6936905901682", name: "Робот-пилосос Roborock QR 798 White 1141773", usd: 540.58 },
+            { id: "6936905902054", name: "Робот-пилосос Roborock Q7 TF+ White 1141767", usd: 324.50 },
+            { id: "6936905902368", name: "Робот-пилосос Roborock Q10 VF+ Black 1142371", usd: 200.00 },
+            { id: "1188415", name: "Робот-пилосос Roborock Qrevo Curv 2 Flow 1188415", usd: 857.78 },
+            { id: "1205710", name: "Робот-пилосос Roborock Qrevo Edge 2 Pro White", usd: 917.98 },
+            { id: "6941812760673", name: "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284", usd: 91.00 },
+            { id: "6970995783346", name: "Робот-пилосос Roborock Qrevo Edge White 1139659", usd: 1227.25 },
+            { id: "6970995788631", name: "Робот-пилосос Roborock Qrevo Pro + Док-Станція", usd: 550.00 },
+            { id: "qrevo-master", name: "Робот-пилосос RoboRock Qrevo Master + Док-Станція", usd: 600.00 },
+            { id: "6970995789768", name: "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)", usd: 500.00 },
+            { id: "6971830920216", name: "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)", usd: 15.20 },
+            { id: "6974653813437", name: "Пилосос Roborock Aries Pro H60 Ultra", usd: 200.00 },
+            { id: "1169251", name: "Пилосос Roborock Aries H60 Pro 1169251", usd: 130.00 }
         ];
 
         const list = document.getElementById('list');
+        const formatter = new Intl.NumberFormat('uk-UA');
 
         products.forEach(item => {
             const card = document.createElement('div');
             card.className = 'item';
-            
+
+            const price = calculatePrice(item.usd);
+
             card.innerHTML = `
                 <div class="img-box">
-                    <img src="images/${item.id}.webp" 
-                         id="img-${item.id}" 
+                    <img src="images/${item.id}.webp"
+                         id="img-${item.id}"
                          alt="${item.name}">
                 </div>
                 <div class="n">${item.name}</div>
                 <span class="c">Арт: ${item.id}</span>
-                <div class="p">${item.price.toLocaleString()} грн</div>
+                <div class="p">${formatter.format(price)} грн</div>
             `;
-            
+
             list.appendChild(card);
 
-            // ЛОГІКА ПЕРЕВІРКИ КАРТИНОК
+            // Якщо немає WEBP — пробуємо JPG, потім ставимо заглушку.
             const imgElement = document.getElementById(`img-${item.id}`);
-            
             imgElement.onerror = function() {
-                // Якщо не знайшли .webp, пробуємо .jpg
                 if (this.src.endsWith('.webp')) {
                     this.src = `images/${item.id}.jpg`;
-                } 
-                // Якщо і .jpg не знайшли, ставимо іконку-заглушку
-                else {
+                } else {
                     this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
-                    this.onerror = null; // Зупиняємо перевірку, щоб не зациклилось
+                    this.onerror = null;
                 }
             };
         });
