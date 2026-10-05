@@ -1,96 +1,110 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Техніка для прибирання - Xiaomi</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
-        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
-        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
-        .item:hover { transform: scale(1.02); }
-        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
-        .n { font-size: 14px; font-weight: 500; min-height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
-        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
-        .p { font-size: 19px; font-weight: 600; color: #000; }
-    </style>
-</head>
-<body>
-    <a href="index.html" class="back">← Назад</a>
-    <h1>Техніка для прибирання - Xiaomi</h1>
-    <div class="product-grid" id="list"></div>
-
-    <script>
-        // Курс і націнка для автоматичного перерахунку USD → UAH.
-        const USD_RATE = 44.50;
-        const MARKUP = 0.10;
-
-        // Ціни вказані в USD. Фінальна ціна:
-        // USD × 44.50 × 1.10, округлення до 0 або 5 грн.
-        function calculatePrice(usd) {
-            return Math.round((usd * USD_RATE * (1 + MARKUP)) / 5) * 5;
-        }
-
-        // Актуальний список товарів із наданого прайсу.
-        const products = [
-            { id: "0006810", name: "Робот-пилосос RoboRock Q7 Max Black (965495)", usd: 415.54 },
-            { id: "001012371683", name: "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)", usd: 19.06 },
-            { id: "6932554440893", name: "Робот-пилосос Xiaomi Robot Vacuum S40 (1163555)", usd: 160.00 },
-            { id: "6932554452391", name: "Пилосос Xiaomi Vacuum Cleaner G30 Max 1178433", usd: 346.13 },
-            { id: "6936905901620", name: "Робот-пилосос Roborock Q10 VF Black 1142369", usd: 200.00 },
-            { id: "6936905901682", name: "Робот-пилосос Roborock QR 798 White 1141773", usd: 540.58 },
-            { id: "6936905902054", name: "Робот-пилосос Roborock Q7 TF+ White 1141767", usd: 324.50 },
-            { id: "6936905902368", name: "Робот-пилосос Roborock Q10 VF+ Black 1142371", usd: 200.00 },
-            { id: "6936905904799", name: "Робот-пилосос Roborock Qrevo Curv 2 Flow 1188415", usd: 857.78 },
-            { id: "6936905905000", name: "Робот-пилосос Roborock Qrevo Edge 2 Pro White", usd: 917.98 },
-            { id: "6941812760673", name: "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284", usd: 91.00 },
-            { id: "6970995783346", name: "Робот-пилосос Roborock Qrevo Edge White (1139659)", usd: 1227.25 },
-            { id: "6970995788631", name: "Робот-пилосос Roborock Qrevo Pro + Док-Станція", usd: 550.00 },
-            { id: "6970995789317", name: "Робот-пилосос RoboRock Qrevo Master + Док-Станція", usd: 600.00 },
-            { id: "6970995789768", name: "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)", usd: 500.00 },
-            { id: "6971830920216", name: "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)", usd: 15.20 },
-            { id: "6974653813437", name: "Пилосос Roborock Aries Pro H60 Ultra", usd: 200.00 },
-            { id: "6974653813697", name: "Пилосос Roborock Aries H60 Pro 1169251", usd: 130.00 }
-        ];
-
-        const list = document.getElementById('list');
-        const formatter = new Intl.NumberFormat('uk-UA');
-
-        products.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'item';
-
-            const price = calculatePrice(item.usd);
-
-            card.innerHTML = `
-                <div class="img-box">
-                    <img src="images/${item.id}.webp"
-                         id="img-${item.id}"
-                         alt="${item.name}">
-                </div>
-                <div class="n">${item.name}</div>
-                <span class="c">Арт: ${item.id}</span>
-                <div class="p">${formatter.format(price)} грн</div>
-            `;
-
-            list.appendChild(card);
-
-            // Якщо немає WEBP — пробуємо JPG, потім ставимо заглушку.
-            const imgElement = document.getElementById(`img-${item.id}`);
-            imgElement.onerror = function() {
-                if (this.src.endsWith('.webp')) {
-                    this.src = `images/${item.id}.jpg`;
-                } else {
-                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
-                    this.onerror = null;
-                }
-            };
-        });
-    </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Техніка для прибирання - Xiaomi - MobiTrade</title><link rel="icon" href="images/logo.png"><style>:root{--bg:#f5f5f7;--card:#fff;--text:#1d1d1f;--muted:#86868b;--line:#e5e5e7}*{box-sizing:border-box}body{margin:0;padding:28px 20px 50px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}.wrap{max-width:1280px;margin:auto}.top{display:flex;justify-content:space-between;margin-bottom:28px}.back{color:var(--text);text-decoration:none;font-size:15px}.brand{font-size:14px;font-weight:700}h1{margin:0 0 30px;font-size:32px;letter-spacing:-.03em}.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:18px}.item{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px}.img-box{height:220px;border-radius:14px;background:#fafafa;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:15px}.img-box img{width:100%;height:100%;padding:14px;object-fit:contain}.n{font-size:15px;font-weight:600;line-height:1.3;min-height:39px}.desc{color:var(--muted);font-size:13px;line-height:1.35;margin-top:7px;min-height:35px}.c{color:var(--muted);font-size:11px;margin-top:10px;display:block}.p{font-size:21px;font-weight:700;margin-top:12px}@media(max-width:600px){body{padding:20px 12px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item{padding:9px}.img-box{height:160px}.n{font-size:13px}.p{font-size:18px}}</style></head><body><div class="wrap"><div class="top"><a href="index.html" class="back">← Назад</a><div class="brand">MobiTrade Xiaomi Acs</div></div><h1>Техніка для прибирання - Xiaomi</h1><div class="product-grid" id="list"></div></div><script>const products=[
+          {
+                    "id": "0006810",
+                    "name": "Робот-пилосос RoboRock Q7 Max Black (965495)",
+                    "description": "",
+                    "price": 20340
+          },
+          {
+                    "id": "001012371683",
+                    "name": "Швабра Yijie non-woven spray mop, білий (YS-01/FP-24)",
+                    "description": "",
+                    "price": 935
+          },
+          {
+                    "id": "6932554440893",
+                    "name": "Робот-пилосос Xiaomi Robot Vacuum S40 (1163555)",
+                    "description": "",
+                    "price": 7830
+          },
+          {
+                    "id": "6932554452391",
+                    "name": "Пилосос Xiaomi Vacuum Cleaner G30 Max 1178433",
+                    "description": "",
+                    "price": 16945
+          },
+          {
+                    "id": "6936905901620",
+                    "name": "Робот-пилосос Roborock Q10 VF Black 1142369",
+                    "description": "",
+                    "price": 9790
+          },
+          {
+                    "id": "6936905901682",
+                    "name": "Робот-пилосос Roborock QR 798 White 1141773",
+                    "description": "",
+                    "price": 26460
+          },
+          {
+                    "id": "6936905902054",
+                    "name": "Робот-пилосос Roborock Q7 TF+ White 1141767",
+                    "description": "",
+                    "price": 15885
+          },
+          {
+                    "id": "6936905902368",
+                    "name": "Робот-пилосос Roborock Q10 VF+ Black 1142371",
+                    "description": "",
+                    "price": 9790
+          },
+          {
+                    "id": "6936905904799",
+                    "name": "Робот-пилосос Roborock Qrevo Curv 2 Flow 1188415",
+                    "description": "",
+                    "price": 41990
+          },
+          {
+                    "id": "6936905905000",
+                    "name": "Робот-пилосос Roborock Qrevo Edge 2 Pro White",
+                    "description": "",
+                    "price": 44935
+          },
+          {
+                    "id": "6941812760673",
+                    "name": "Робот-пилосос Xiaomi Robot Vacuum E5 White 1033284",
+                    "description": "",
+                    "price": 4455
+          },
+          {
+                    "id": "6970995783346",
+                    "name": "Робот-пилосос Roborock Qrevo Edge White (1139659)",
+                    "description": "",
+                    "price": 60075
+          },
+          {
+                    "id": "6970995788631",
+                    "name": "Робот-пилосос Roborock Qrevo Pro + Док-Станція",
+                    "description": "",
+                    "price": 26925
+          },
+          {
+                    "id": "6970995789317",
+                    "name": "Робот-пилосос RoboRock Qrevo Master + Док-Станція",
+                    "description": "",
+                    "price": 29370
+          },
+          {
+                    "id": "6970995789768",
+                    "name": "Робот-пилосос RoboRock Qrevo + Док-Станція (QX0PEA)",
+                    "description": "",
+                    "price": 24475
+          },
+          {
+                    "id": "6971830920216",
+                    "name": "Швабра Xiaomi Youpin Bluefish Aluminium Spray Mop (3232218)",
+                    "description": "",
+                    "price": 745
+          },
+          {
+                    "id": "6974653813437",
+                    "name": "Пилосос Roborock Aries Pro H60 Ultra",
+                    "description": "",
+                    "price": 9790
+          },
+          {
+                    "id": "6974653813697",
+                    "name": "Пилосос Roborock Aries H60 Pro 1169251",
+                    "description": "",
+                    "price": 6365
+          }
+];const list=document.getElementById("list"),formatter=new Intl.NumberFormat("uk-UA");products.forEach(item=>{const card=document.createElement("article");card.className="item";card.innerHTML=`<div class="img-box"><img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}"></div><div class="n">${item.name}</div><div class="desc">${item.description||""}</div><span class="c">Арт: ${item.id}</span><div class="p">${formatter.format(item.price)} грн</div>`;list.appendChild(card);const img=document.getElementById(`img-${item.id}`);img.onerror=function(){if(this.src.endsWith(".webp"))this.src=`images/${item.id}.jpg`;else{this.src="https://img.icons8.com/ios/100/86868b/electronics.png";this.onerror=null}}});</script></body></html>
