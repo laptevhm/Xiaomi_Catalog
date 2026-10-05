@@ -1,84 +1,145 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аудіо техніка - Xiaomi</title>
-  <link rel="icon" type="image/png" href="images/logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудіо техніка - Xiaomi - MobiTrade</title>
+<link rel="icon" type="image/png" href="images/logo.png">
 <link rel="apple-touch-icon" href="images/logo.png">
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; padding: 20px; color: #1d1d1f; }
-        .back { margin-bottom: 20px; display: inline-block; text-decoration: none; color: #0066cc; font-size: 17px; }
-        h1 { font-size: 32px; font-weight: 600; margin-bottom: 30px; letter-spacing: -0.02em; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-        .item { background: #f5f5f7; padding: 20px; border-radius: 22px; text-align: center; transition: transform 0.2s ease; }
-        .item:hover { transform: scale(1.02); }
-        .img-box { background: #fff; height: 180px; border-radius: 14px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .img-box img { max-width: 85%; max-height: 85%; object-fit: contain; }
-        .n { font-size: 14px; font-weight: 500; height: 38px; overflow: hidden; margin-bottom: 8px; line-height: 1.3; }
-        .c { font-size: 11px; color: #86868b; margin-bottom: 12px; display: block; }
-        .p { font-size: 19px; font-weight: 600; color: #000; }
-    </style>
+<style>
+:root { --bg:#f5f5f7; --card:#fff; --text:#1d1d1f; --muted:#86868b; --line:#e5e5e7; --accent:#ff6a00; }
+* { box-sizing:border-box; }
+body { margin:0; padding:28px 20px 50px; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; }
+.wrap { max-width:1280px; margin:0 auto; }
+.top { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:28px; }
+.back { color:var(--text); text-decoration:none; font-size:15px; font-weight:500; }
+.brand { font-size:14px; font-weight:700; letter-spacing:.02em; }
+h1 { margin:0 0 30px; font-size:32px; line-height:1.1; letter-spacing:-.03em; font-weight:650; }
+.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(245px,1fr)); gap:18px; }
+.item { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:14px; text-align:left; overflow:hidden; transition:transform .18s ease,box-shadow .18s ease; }
+.item:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.07); }
+.img-box { height:220px; border-radius:14px; background:#fafafa; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:15px; }
+.img-box img { width:100%; height:100%; padding:14px; object-fit:contain; }
+.info { padding:0 4px 3px; }
+.n { font-size:15px; font-weight:600; line-height:1.3; min-height:39px; }
+.desc { color:var(--muted); font-size:13px; line-height:1.35; margin-top:7px; min-height:35px; }
+.c { color:var(--muted); font-size:11px; margin-top:10px; display:block; }
+.p { font-size:21px; font-weight:700; margin-top:12px; letter-spacing:-.02em; }
+@media (max-width:600px) {
+ body { padding:20px 12px 40px; }
+ h1 { font-size:27px; margin-bottom:22px; }
+ .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+ .item { padding:9px; border-radius:16px; }
+ .img-box { height:160px; border-radius:11px; }
+ .n { font-size:13px; min-height:34px; }
+ .desc { font-size:12px; min-height:32px; }
+ .p { font-size:18px; }
+}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <div class="top">
     <a href="index.html" class="back">← Назад</a>
-    <h1>Аудіо техніка - Xiaomi</h1>
-    <div class="product-grid" id="list"></div>
+    <div class="brand">MobiTrade Xiaomi Acs</div>
+  </div>
+  <h1>Аудіо техніка - Xiaomi</h1>
+  <div class="product-grid" id="list"></div>
+</div>
+<script>
+const products = [
+          {
+                    "id": "190997007134",
+                    "name": "Навушники Redmi Buds 6 Active (BHR8394GL) Transparent Blue  ",
+                    "price": 685,
+                    "description": ""
+          },
+          {
+                    "id": "6933037201185",
+                    "name": "1MORE ComfoBuds Pro TWS Headphones (ES901) white",
+                    "price": 2495,
+                    "description": ""
+          },
+          {
+                    "id": "6933037251661",
+                    "name": "Навушники 1More piston fit earphone E1009 color (360028) (360029)",
+                    "price": 240,
+                    "description": ""
+          },
+          {
+                    "id": "6934177746338",
+                    "name": "Навушники TWS Xiaomi Redmi Buds 3 White",
+                    "price": 1335,
+                    "description": ""
+          },
+          {
+                    "id": "6934177749094",
+                    "name": "Акустика Xiaomi Smart Speaker IR Control (QBH4218GL)",
+                    "price": 1715,
+                    "description": ""
+          },
+          {
+                    "id": "6934177776946",
+                    "name": "Навушники Redmi Buds 4 Pro (BHR5896GL) Black (897740)",
+                    "price": 2500,
+                    "description": ""
+          },
+          {
+                    "id": "6941812777527",
+                    "name": "Навушники Redmi Buds 6 Active(BHR8391GL) White (1071779)",
+                    "price": 685,
+                    "description": ""
+          },
+          {
+                    "id": "6941812777565",
+                    "name": "Навушники Redmi Buds 6 Active (BHR8395GL) Transparent Pink (1071780)",
+                    "price": 685,
+                    "description": ""
+          },
+          {
+                    "id": "6941812791271",
+                    "name": "Навушники Redmi Buds 6 Play (BHR8773GL) White  1071787",
+                    "price": 535,
+                    "description": ""
+          },
+          {
+                    "id": "6941812799734",
+                    "name": "Навушники Redmi Buds 6 (BHR9245GL) Coral Green  1124216",
+                    "price": 1730,
+                    "description": ""
+          },
+          {
+                    "id": "6941948703384",
+                    "name": "Xiaomi Bluetooth Speaker Mini(QBH4274GL)",
+                    "price": 1505,
+                    "description": ""
+          }
+];
 
-    <script>
-        const rate = 44.50;
-        const margin = 1.10;
+const list = document.getElementById("list");
+const formatter = new Intl.NumberFormat("uk-UA");
 
-        // Список товарів (виправлено помилки та пробіли в ID)
-        const products = [
-            { id: "190997007134", name: "Навушники Redmi Buds 6 Active (BHR8394GL) Transparent Blue  ", usd: 13.93 },
-            { id: "6933037201185", name: "1MORE ComfoBuds Pro TWS Headphones (ES901) white", usd: 50.95 },
-            { id: "6933037251661", name: "Навушники 1More piston fit earphone E1009 color (360028) (360029)", usd: 4.82 },
-            { id: "6934177746338", name: "Навушники TWS Xiaomi Redmi Buds 3 White", usd: 27.27 },
-            { id: "6934177749094", name: "Акустика Xiaomi Smart Speaker IR Control (QBH4218GL)", usd: 35 },
-            { id: "6934177776946", name: "Навушники Redmi Buds 4 Pro (BHR5896GL) Black (897740)", usd: 51 },
-            { id: "6941812777527", name: "Навушники Redmi Buds 6 Active(BHR8391GL) White (1071779)", usd: 13.94 },
-            { id: "6941812777565", name: "Навушники Redmi Buds 6 Active (BHR8395GL) Transparent Pink (1071780)", usd: 13.93 },
-            { id: "6941812791271", name: "Навушники Redmi Buds 6 Play (BHR8773GL) White  1071787", usd: 10.92 },
-          { id: "6941812799734", name: "Навушники Redmi Buds 6 (BHR9245GL) Coral Green  1124216", usd: 35.33 },
-          { id: "6941948703384", name: "Xiaomi Bluetooth Speaker Mini(QBH4274GL)", usd: 30.70 }
-        ];
-
-        const list = document.getElementById('list');
-
-        products.forEach(item => {
-            const uah = Math.ceil((item.usd * rate * margin) / 5) * 5;
-            
-            const card = document.createElement('div');
-            card.className = 'item';
-            
-            // Створюємо чистий шаблон картки
-            card.innerHTML = `
-                <div class="img-box">
-                    <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
-                </div>
-                <div class="n">${item.name}</div>
-                <span class="c">Арт: ${item.id}</span>
-                <div class="p">${uah.toLocaleString()} грн</div>
-            `;
-            
-            list.appendChild(card);
-
-            // Окрема логіка перевірки картинок для кожного ID
-            const imgElement = document.getElementById(`img-${item.id}`);
-            
-            imgElement.onerror = function() {
-                // Якщо не знайшли .webp, пробуємо .jpg
-                if (this.src.endsWith('.webp')) {
-                    this.src = `images/${item.id}.jpg`;
-                } 
-                // Якщо і .jpg не знайшли, ставимо іконку
-                else if (this.src.endsWith('.jpg')) {
-                    this.src = 'https://img.icons8.com/ios/100/86868b/electronics.png';
-                    this.onerror = null; // Зупиняємо цикл помилок
-                }
-            };
-        });
-    </script>
+products.forEach(item => {
+  const card = document.createElement("article");
+  card.className = "item";
+  card.innerHTML = `
+    <div class="img-box">
+      <img src="images/${item.id}.webp" id="img-${item.id}" alt="${item.name}">
+    </div>
+    <div class="info">
+      <div class="n">${item.name}</div>
+      <div class="desc">${item.description || ""}</div>
+      <span class="c">Арт: ${item.id}</span>
+      <div class="p">${formatter.format(item.price)} грн</div>
+    </div>
+  `;
+  list.appendChild(card);
+  const img = document.getElementById(`img-${item.id}`);
+  img.onerror = function() {
+    if (this.src.endsWith(".webp")) this.src = `images/${item.id}.jpg`;
+    else { this.src = "https://img.icons8.com/ios/100/86868b/electronics.png"; this.onerror = null; }
+  };
+});
+</script>
 </body>
 </html>
