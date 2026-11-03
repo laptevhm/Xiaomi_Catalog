@@ -2,31 +2,31 @@
   {
     "id": "6934177711664",
     "name": "Рюкзак Mi business multi-functional shoulder bag 2 Black",
-    "description" 30л 50 x 33.5 x 18 см  Захист від дощу Відсік для ноутбука "",
+    "description"30л 50 x 33.5 x 18 см  Захист від дощу Відсік для ноутбука"",
     "price": 3500
   },
   {
     "id": "6934177715846",
     "name": "c",
-    "description" 17Л 3 відділа Відсік для ноутбука "",
+    "description"17Л 3 відділа Відсік для ноутбука"",
     "price": 1900
   },
   {
     "id": "6934177748110",
     "name": "Сумка на пояс Xiaomi Sports Fanny Pack Black (AN) (941946)",
-    "description" 2 відділа Захист від дощу 2 кишені кишення для пляшки"",
+    "description"2 відділа Захист від дощу 2 кишені кишення для пляшки"",
     "price": 950
   },
   {
     "id": "6972281349779",
     "name": " Шкарпетки Xiaomi Qimian DuPont/Silvadur antibacterial men's socks Grey Black 3 pcs pack",
-    "description"Антибактеріальні шкарпетки 41-44рр "",
+    "description"Антибактеріальні шкарпетки 41-44рр"",
     "price": 599
   },
   {
     "id": "810648012002",
     "name": "Рукавички Moshi Digits touch screen L (99MO065031)",
-    "description"Для смартфону Двошарові з флісовою підкладкою "",
+    "description"Для смартфону Двошарові з флісовою підкладкою"",
     "price": 950
   }
 ];const tbody=document.getElementById("rows"),search=document.getElementById("search"),box=document.getElementById("lightbox"),large=document.getElementById("large");const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));function render(){const q=search.value.toLocaleLowerCase("uk");const items=products.filter(x=>String(x.name).toLocaleLowerCase("uk").includes(q)||String(x.id).includes(q));tbody.replaceChildren();for(const x of items){const tr=document.createElement("tr");tr.innerHTML="<td>"+safe(x.id)+"</td><td><button type=\"button\" class=\"product-link\">"+safe(x.name)+"</button></td><td>"+new Intl.NumberFormat("uk-UA").format(Number(x.price)||0)+" грн</td><td></td>";const cell=tr.lastElementChild;const img=document.createElement("img");img.className="thumb";img.loading="lazy";img.alt="Фото "+x.name;const sources=["webp","jpg","png"];let i=0;img.src="images/"+encodeURIComponent(x.id)+"."+sources[i];img.onerror=()=>{i++;if(i<sources.length)img.src="images/"+encodeURIComponent(x.id)+"."+sources[i];else cell.textContent="—"};const openProduct=()=>{large.src=img.src;large.alt=img.alt;document.getElementById("product-title").textContent=x.name;document.getElementById("product-description").textContent=x.description||"";box.classList.add("show")};img.onclick=openProduct;tr.querySelector(".product-link").onclick=openProduct;cell.append(img);tbody.append(tr)}document.getElementById("count").textContent="Показано товарів: "+items.length}search.oninput=render;document.getElementById("close").onclick=()=>box.classList.remove("show");box.onclick=e=>{if(e.target===box)box.classList.remove("show")};document.onkeydown=e=>{if(e.key==="Escape")box.classList.remove("show")};render();</script></body></html>
